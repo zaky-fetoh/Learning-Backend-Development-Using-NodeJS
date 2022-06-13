@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>Network1 </title>
+</head> 
+<body>
+<form action="/ANS" method="POST">
+  <label for="StudentName">Student Name:</label><br>
+  <input type="text" id="StudentName" name="StudentName" value=""><br><br>
+  <label for="StudentID">Student ID:</label><br>
+  <input type="text" id="StudentID" name="StudentID" value=""><br><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

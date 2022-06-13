@@ -1,0 +1,1 @@
+[{"status":"fulfilled","value":"img1 DownLoaded"},{"status":"fulfilled","value":"img2 DownLoaded"},{"status":"fulfilled","value":"img3 DownLoaded"},{"status":"fulfilled","value":"img4 DownLoaded"}]
