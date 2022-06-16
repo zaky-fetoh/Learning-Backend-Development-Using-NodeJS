@@ -1,5 +1,5 @@
 //MAhmoud ZAky
-const pf = require('.\\parseFile.js'); 
+const pf = require('./parseFile.js'); 
 const http = require('https');
 const fs = require('fs');
 const path = require('path')
