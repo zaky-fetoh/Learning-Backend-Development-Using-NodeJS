@@ -1,11 +1,6 @@
 const path = require("path");
 const fs = require("fs");
 
-
-
-
-
-
 class TreeNode {
   constructor(key, obj) {
     this.key = key;
@@ -19,7 +14,6 @@ class TreeNode {
 class Tree {
   constructor() {
     this.root = undefined;
-
   }
 
   insert(key, obj) {
@@ -27,13 +21,11 @@ class Tree {
     this.insertNode(node);
   }
   insertNode(node) {
-    
     if (this.root === undefined) this.root = node;
     else {
       let curr = this.root,
         flg = true;
       while (flg) {
-        
         if (node.key < curr.key) {
           if (curr.left) curr = curr.left;
           else {
@@ -71,7 +63,7 @@ class Tree {
       if (node.parant.right && node.parant.right.key === node.key) d = 1;
       if (d) node.parant.right = rep1;
       else node.parant.left = rep1;
-    }else this.root = rep1;
+    } else this.root = rep1;
 
     if (rep1) {
       this.deleteNode(rep1);
@@ -93,7 +85,7 @@ class Tree {
   delete(key) {
     let ver = this.finedNode(key);
 
-    if(!ver) return false;
+    if (!ver) return false;
     this.deleteNode(ver);
     return true;
   }
@@ -102,37 +94,37 @@ class Tree {
     this.insert(key, obj);
   }
 
-  inorder(operation= n =>console.log, node=this.root){
-      if(node.left) this.inorder(operation, node.left);
-      operation(node);
-      if(node.right) this.inorder(operation, node.right);
+  inorder(operation = n => console.log, node = this.root) {
+    if (node.left) this.inorder(operation, node.left);
+    operation(node);
+    if (node.right) this.inorder(operation, node.right);
   }
-  preorder(operation=(n)=>console.log, node=this.root){
-    if(node)operation(node);
-    
-    if(node.left) this.preorder(operation, node.left);
-    if(node.right) this.preorder(operation, node.right);
-}
+  preorder(operation = n => console.log, node = this.root) {
+    if (node) operation(node);
+
+    if (node.left) this.preorder(operation, node.left);
+    if (node.right) this.preorder(operation, node.right);
+  }
 }
 
-
-const serializeTree = function(tree){
-    let arr = [];
-    if(tree.root) tree.preorder(({key, obj})=>{
-        arr.push({key,obj});
+const serializeTree = function(tree) {
+  let arr = [];
+  if (tree.root)
+    tree.preorder(({ key, obj }) => {
+      arr.push({ key, obj });
     });
-    return JSON.stringify(arr); 
-}
+  return JSON.stringify(arr);
+};
 
-function treeFromString(s){
-    let tree = new Tree();
-    if(s.length <=2) return tree ;
-    let objs = JSON.parse(s);
-    objs.forEach(({key, obj}) =>{
-        tree.insert(key, obj);
-    }); return tree; 
+function treeFromString(s) {
+  let tree = new Tree();
+  if (s.length <= 2) return tree;
+  let objs = JSON.parse(s);
+  objs.forEach(({ key, obj }) => {
+    tree.insert(key, obj);
+  });
+  return tree;
 }
-
 
 class DB {
   constructor(db_name, Regupdate = 5000) {
@@ -146,46 +138,45 @@ class DB {
 
     this.dfile = path.join(__dirname, "data", db_name);
     if (!fs.existsSync(this.dfile)) {
-        console.log('creating The DB')
-        fs.mkdirSync(path.basename(this.dfile), {recursive: true}); 
-        fs.writeFile(this.dfile, '', ()=>{})
+      console.log("creating The DB");
+      fs.mkdirSync(path.basename(this.dfile), { recursive: true });
+      fs.writeFile(this.dfile, "", () => {});
     }
-    this.loadFromDisk(()=>{});
+    this.loadFromDisk(() => {});
     this.update_time = setInterval(() => {
-      if(this.update) this.saveToDisk(function(){});
-    //   this.update = false;
+      if (this.update) this.saveToDisk(function() {});
+      //   this.update = false;
     }, this.Regup);
   }
 
-  loadFromDisk(callback){
-    let dt = fs.readFileSync(this.dfile,'utf-8')
-    this.tree = treeFromString(dt); 
+  loadFromDisk(callback) {
+    let dt = fs.readFileSync(this.dfile, "utf-8");
+    this.tree = treeFromString(dt);
   }
   saveToDisk(callback) {
-      let s = serializeTree(this.tree);
-      fs.writeFile(this.dfile, s, callback);
+    let s = serializeTree(this.tree);
+    fs.writeFile(this.dfile, s, callback);
   }
-  insert(key, obj){
-    
+  insert(key, obj) {
     this.tree.insert(key, obj);
-    this.updateFlag(); 
+    this.updateFlag();
   }
-  delete(key){
-      this.delete(key);
-      this.updateFlag(); 
+  delete(key) {
+    this.delete(key);
+    this.updateFlag();
   }
-  update(oldkey, newkey, newobj){
-      this.tree.update(oldkey, newkey, newobj);
-      this.updateFlag(); 
+  update(oldkey, newkey, newobj) {
+    this.tree.update(oldkey, newkey, newobj);
+    this.updateFlag();
   }
-  find(key){
+  find(key) {
     // this.updateFlag()
-    let obj = this.tree.finedNode(key); 
-    if(obj) return obj.obj; 
+    let obj = this.tree.finedNode(key);
+    if (obj) return obj.obj;
     return obj;
   }
-  updateFlag(){
-    this.update = true; 
+  updateFlag() {
+    this.update = true;
   }
 }
 
