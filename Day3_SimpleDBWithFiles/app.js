@@ -25,8 +25,7 @@ const handelPostReq = function(req, res){
     })
     req.on('end',()=>{
         let d = Buffer.concat(arr).toString(); 
-
-        console.log(d);
+        d = JSON.parse(d)
         db.insert(d.key, d.obj)
         res.statusCode = 200 ;
         res.write(JSON.stringify(d),); 

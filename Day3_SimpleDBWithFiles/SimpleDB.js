@@ -121,15 +121,13 @@ const serializeTree = function(tree){
     if(tree.root) tree.preorder(({key, obj})=>{
         arr.push({key,obj});
     });
-    console.log(arr);
-    console.log(tree.root);
     return JSON.stringify(arr); 
 }
 
 function treeFromString(s){
     let tree = new Tree();
-    if(!s) return tree ;
-    let objs = eval(s); 
+    if(s.length <=2) return tree ;
+    let objs = JSON.parse(s);
     objs.forEach(({key, obj}) =>{
         tree.insert(key, obj);
     }); return tree; 
@@ -141,31 +139,30 @@ class DB {
     this.db_name = db_name;
     this.Regup = Regupdate;
     this.tree = new Tree();
-    this.updte = false;
+    this.update = false;
 
     if (this.Regup <= 0)
       throw new Error("Register Update Time Must Be Positive value in Milisec");
 
     this.dfile = path.join(__dirname, "data", db_name);
     if (!fs.existsSync(this.dfile)) {
+        console.log('creating The DB')
         fs.mkdirSync(path.basename(this.dfile), {recursive: true}); 
         fs.writeFile(this.dfile, '', ()=>{})
     }
+    this.loadFromDisk(()=>{});
     this.update_time = setInterval(() => {
       if(this.update) this.saveToDisk(function(){});
     //   this.update = false;
     }, this.Regup);
   }
 
-  async loadFromDisk(callback){
-    fs.readFileSync(this.dfile,'utf-8',(err, dt)=>{
-        callback(err); 
-        this.tree = treeFromString(dt); 
-    })
+  loadFromDisk(callback){
+    let dt = fs.readFileSync(this.dfile,'utf-8')
+    this.tree = treeFromString(dt); 
   }
-  async saveToDisk(callback) {
+  saveToDisk(callback) {
       let s = serializeTree(this.tree);
-      console.log(s)
       fs.writeFile(this.dfile, s, callback);
   }
   insert(key, obj){
