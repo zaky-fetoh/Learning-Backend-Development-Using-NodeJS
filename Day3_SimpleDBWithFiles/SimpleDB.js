@@ -107,7 +107,7 @@ class Tree {
   }
 }
 
-const serializeTree = function(tree) {
+const serializeTree = function (tree) {
   let arr = [];
   if (tree.root)
     tree.preorder(({ key, obj }) => {
@@ -140,11 +140,11 @@ class DB {
     if (!fs.existsSync(this.dfile)) {
       console.log("creating The DB");
       fs.mkdirSync(path.basename(this.dfile), { recursive: true });
-      fs.writeFile(this.dfile, "", () => {});
+      fs.writeFile(this.dfile, "", () => { });
     }
-    this.loadFromDisk(() => {});
+    this.loadFromDisk(() => { });
     this.update_time = setInterval(() => {
-      if (this.update) this.saveToDisk(function() {});
+      if (this.update) this.saveToDisk(function () { });
       //   this.update = false;
     }, this.Regup);
   }
@@ -158,24 +158,24 @@ class DB {
     fs.writeFile(this.dfile, s, callback);
   }
   insert(key, obj) {
-    if(typeof key !== 'number') key = parseInt(key) 
+    if (typeof key !== 'number') key = parseInt(key)
     this.tree.insert(key, obj);
     this.updateFlag();
   }
   delete(key) {
-    if(typeof key !== 'number') key = parseInt(key) 
+    if (typeof key !== 'number') key = parseInt(key)
     this.tree.delete(key);
     this.updateFlag();
   }
   updating(oldkey, newkey, newobj) {
-    if(typeof oldkey !== 'number') oldkey = parseInt(oldkey) 
-    if(typeof newkey !== 'number') newkey = parseInt(newkey) 
+    if (typeof oldkey !== 'number') oldkey = parseInt(oldkey)
+    if (typeof newkey !== 'number') newkey = parseInt(newkey)
     this.tree.update(oldkey, newkey, newobj);
     this.updateFlag();
   }
   find(key) {
     // this.updateFlag()
-    if(typeof key !== 'number') key = parseInt(key) 
+    if (typeof key !== 'number') key = parseInt(key)
     let obj = this.tree.finedNode(key);
     if (obj) return obj.obj;
     return obj;

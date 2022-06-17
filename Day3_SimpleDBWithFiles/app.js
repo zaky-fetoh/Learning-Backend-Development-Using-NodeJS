@@ -5,7 +5,7 @@ const url = require("url");
 
 const db = new DB("Ser.db");
 
-const handelGetReq = function(req, res) {
+const handelGetReq = function (req, res) {
   let key = new url.URLSearchParams(req.url.split("?")[1].split("#")[0]).get(
     "key"
   );
@@ -17,7 +17,7 @@ const handelGetReq = function(req, res) {
   res.end();
 };
 
-const handelPostReq = function(req, res) {
+const handelPostReq = function (req, res) {
   let arr = [];
   req.on("data", chunk => {
     arr.push(chunk);
@@ -29,13 +29,15 @@ const handelPostReq = function(req, res) {
     res.write(JSON.stringify(d));
     res.end();
   });
+  req.on('error',e=>{throw e});
+  
 };
 
-const handelPutReq = function(req, res){
+const handelPutReq = function (req, res) {
   let oldkey = new url.URLSearchParams(
     req.url.split("?")[1].split("#")[0]).get(
-    "key"
-  ); 
+      "key"
+    );
   let arr = [];
   req.on("data", chunk => {
     arr.push(chunk);
@@ -44,20 +46,21 @@ const handelPutReq = function(req, res){
     let d = JSON.parse(Buffer.concat(arr).toString());
     console.log(d.key);
     db.updating(oldkey, d.key, d.obj);
-    res.statusCode = 200; 
+    res.statusCode = 200;
     res.write(JSON.stringify(d));
     res.end();
   })
+  req.on('error',e=>{throw e});
 }
 
-const handelDelReq = function(req, res){
+const handelDelReq = function (req, res) {
   let key = new url.URLSearchParams(req.url.split("?")[1].split("#")[0]).get(
     "key"
   );
   let v = db.find(key);
   console.log(v);
   if (v) {
-    db.delete(key); 
+    db.delete(key);
   } else res.statusCode = 404;
   res.end();
 }
@@ -66,12 +69,13 @@ http
   .createServer((req, res) => {
     let { url, method } = req;
     console.log(url, method);
-    try{
-    if (method === "GET") handelGetReq(req, res);
-    if (method === "POST") handelPostReq(req, res);
-    if (method === "PUT") handelPutReq(req, res);
-    if (method === "DELETE") handelDelReq(req, res); 
-    }catch{
-    res.statusCode = 500; 
-    res.end();
-  }}).listen(3000);
+    try {
+      if (method === "GET") handelGetReq(req, res);
+      if (method === "POST") handelPostReq(req, res);
+      if (method === "PUT") handelPutReq(req, res);
+      if (method === "DELETE") handelDelReq(req, res);
+    } catch{
+      res.statusCode = 500;
+      res.end();
+    }
+  }).listen(3000);
