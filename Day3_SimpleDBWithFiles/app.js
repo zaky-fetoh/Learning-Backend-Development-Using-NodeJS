@@ -29,8 +29,8 @@ const handelPostReq = function (req, res) {
     res.write(JSON.stringify(d));
     res.end();
   });
-  req.on('error',e=>{throw e});
-  
+  req.on('error', e => { throw e });
+
 };
 
 const handelPutReq = function (req, res) {
@@ -50,7 +50,7 @@ const handelPutReq = function (req, res) {
     res.write(JSON.stringify(d));
     res.end();
   })
-  req.on('error',e=>{throw e});
+  req.on('error', e => { throw e });
 }
 
 const handelDelReq = function (req, res) {
@@ -63,6 +63,9 @@ const handelDelReq = function (req, res) {
     db.delete(key);
   } else res.statusCode = 404;
   res.end();
+
+
+
 }
 
 http
@@ -74,7 +77,7 @@ http
       if (method === "POST") handelPostReq(req, res);
       if (method === "PUT") handelPutReq(req, res);
       if (method === "DELETE") handelDelReq(req, res);
-    } catch{
+    } catch {
       res.statusCode = 500;
       res.end();
     }
