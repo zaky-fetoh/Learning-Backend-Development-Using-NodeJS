@@ -1,0 +1,19 @@
+{
+  "name": "day4_simplefileservusingexpress",
+  "version": "1.0.0",
+  "description": "A simple file Server using Express. It can POST, GET, PUT, DELETE files",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
