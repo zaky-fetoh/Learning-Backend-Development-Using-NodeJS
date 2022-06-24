@@ -19,8 +19,11 @@ const utils ={
                 if (err) console.log(err);
             });
     }, 
-
-}
+    deleteFile: function(name, callback){
+        let p = this.getImgePath(name); 
+        fs.unlink(p, callback);
+    },
+};
 
 
 module.exports = utils ; 

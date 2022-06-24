@@ -20,3 +20,5 @@ GET Req from IP:<<::1>> at <<Fri Jun 24 2022 13:44:15 GMT+0200 (Eastern European
 GET Req from IP:<<::1>> at <<Fri Jun 24 2022 13:45:01 GMT+0200 (Eastern European Standard Time)>> requisting <</?imgId=1542.jpg>>#
 GET Req from IP:<<::1>> at <<Fri Jun 24 2022 13:45:01 GMT+0200 (Eastern European Standard Time)>> requisting <</favicon.ico>>#
 GET Req from IP:<<::1>> at <<Fri Jun 24 2022 13:45:07 GMT+0200 (Eastern European Standard Time)>> requisting <</?imgid=1542.jpg>>#
+DELETE Req from IP:<<::1>> at <<Fri Jun 24 2022 13:50:19 GMT+0200 (Eastern European Standard Time)>> requisting <</?imgId=1542.jpg>>#
+DELETE Req from IP:<<::1>> at <<Fri Jun 24 2022 13:51:21 GMT+0200 (Eastern European Standard Time)>> requisting <</?imgId=1542.jpg>>#
