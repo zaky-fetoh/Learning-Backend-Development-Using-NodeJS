@@ -1,0 +1,24 @@
+{
+  addItem: [Function (anonymous)],
+  findAll: [Function (anonymous)],
+  findId: [Function (anonymous)],
+  find: [Function (anonymous)],
+  destory: [Function (anonymous)]
+}
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'customers' AND TABLE_SCHEMA = 'project0'
+Executing (default): SHOW INDEX FROM `customers`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'products' AND TABLE_SCHEMA = 'project0'
+Executing (default): SHOW INDEX FROM `products`
+SerVerStarTed at Fri Jul 15 2022 00:33:28 GMT+0200 (Eastern European Standard Time)
+{
+  addItem: [Function (anonymous)],
+  findAll: [Function (anonymous)],
+  findId: [Function (anonymous)],
+  find: [Function (anonymous)],
+  destory: [Function (anonymous)]
+}
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'customers' AND TABLE_SCHEMA = 'project0'
+Executing (default): SHOW INDEX FROM `customers`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'products' AND TABLE_SCHEMA = 'project0'
+Executing (default): SHOW INDEX FROM `products`
+SerVerStarTed at Fri Jul 15 2022 00:35:32 GMT+0200 (Eastern European Standard Time)
