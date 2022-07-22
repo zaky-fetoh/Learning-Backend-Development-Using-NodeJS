@@ -11,6 +11,9 @@ const userSchema = new mongoose.Schema({
         type:String, 
         required: true
     },
+    password:{
+        type:String
+    },
     age:{
         type: Number,
         min:7, 
@@ -21,7 +24,7 @@ const userSchema = new mongoose.Schema({
         required: function(){
             return this.age > 18; 
         },
-        match: /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
+        //match: /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-]+(?:\. [a-zA-Z0-9-]+)*$/,
     },
     addDate:{
         type:Date,

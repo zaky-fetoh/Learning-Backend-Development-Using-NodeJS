@@ -1,12 +1,31 @@
 require("mongoose").connect("mongodb://localhost:27017/firstREST", () => {
+require("dotenv").config();    
+
     const mongoose = require("mongoose");
     const express = require("express")
-    const User = require("./model/users");
-    const ProductInfo = require("./model/productsInfo")
-    const Orders = require("./model/orders"); 
-    const s = require("./model/store");
+    const db = require("./model/init");
+    const auth = require("./controller/auth")
+    const bodyParser = require("body-parser")
 
-    main();
+    new db.Users({
+        name: "ah zaKy", 
+        age: 15,
+        password:"1234",
+        email:"mah@gmail.com", 
+    }).save(); 
+
+    new express()
+    .use(bodyParser.json())
+    .post("/login",auth.login)
+    .use('/g', auth.verify,(req,res, next)=>{
+        console.log(req.userId);
+    }).listen(3000,()=>{
+        console.log("SerVerStarTed");
+    });
+
+
+
+    //main();
     async function main(){
     let user = new User({
         name: "ah zaKy", 
