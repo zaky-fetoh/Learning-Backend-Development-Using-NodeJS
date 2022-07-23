@@ -54,7 +54,4 @@ productsInfoSchema.post('save', async function(doc, next){
         next();
 })
 
-
-
-
 module.exports = mongoose.model('productsInfo', productsInfoSchema)

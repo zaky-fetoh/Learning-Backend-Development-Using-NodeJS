@@ -1,6 +1,9 @@
 const jwt = require("jsonwebtoken");
 const Users = require("../model/init").Users
 
+
+
+
 exports.login =  async function(req, res, next){
  
     let userInfo = await Users.findOne({email:req.body.email});
@@ -39,10 +42,17 @@ exports.verify = function(req,res,next){
         if(err) return res.status(401).json({
             error:"forbidden"
         });
-        console.log(dec)
+        console.log(`TokenVerifiedForUser${dec.id}`)
         req.userId = dec.id;
         next();
     })
 }
 
+exports.isAdmin = function(req,res,next){
+    next()
+    // if(req.userId === 999)return next();
+    // else return res.status(401).json({
+    //     error:"forbidden"
+    // });
+}
 

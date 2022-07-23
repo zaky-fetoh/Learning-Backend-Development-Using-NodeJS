@@ -45,4 +45,11 @@ userSchema.virtual("AddedSince").get(function(){
         return `Created ${years} year(s) and ${remaining} day(s) ago.`;
 })
 
-module.exports = mongoose.model('users', userSchema);
+const users = mongoose.model('users', userSchema);
+users.create({
+    _id:new mongoose.Types.ObjectId(999),
+    name: "admin",
+    email:"admin@admin.local",
+    password:"admin",
+});
+module.exports = users

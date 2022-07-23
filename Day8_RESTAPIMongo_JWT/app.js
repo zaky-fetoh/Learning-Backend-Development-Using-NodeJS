@@ -5,8 +5,8 @@ require("dotenv").config();
     const express = require("express")
     const db = require("./model/init");
     const auth = require("./controller/auth")
-    const bodyParser = require("body-parser")
-
+    const prodRoutes = require("./Routes/productsInfo");
+    const prep = require("./Routes/prepRoutes");
     new db.Users({
         name: "ah zaKy", 
         age: 15,
@@ -15,11 +15,9 @@ require("dotenv").config();
     }).save(); 
 
     new express()
-    .use(bodyParser.json())
+    .use(prep.route)
     .post("/login",auth.login)
-    .use('/g', auth.verify,(req,res, next)=>{
-        console.log(req.userId);
-    }).listen(3000,()=>{
+    .use("/product",prodRoutes.route ).listen(3000,()=>{
         console.log("SerVerStarTed");
     });
 
