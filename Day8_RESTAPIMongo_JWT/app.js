@@ -17,7 +17,21 @@ require("dotenv").config();
     new express()
     .use(prep.route)
     .post("/login",auth.login)
-    .use("/product",prodRoutes.route ).listen(3000,()=>{
+    .use("/product",prodRoutes.route )
+    // .delete("/product", prodRoutes.)
+    .use("/", (req, res, next)=>{
+        res.status(404).json({
+            message:"invalide Route"
+        })
+    })
+    .use((err, req, res, next) => {
+        if (res.headersSent) {
+          return next(err)
+        }
+        res.status(500)
+        res.render('error', { error: err })
+      })
+    .listen(3000,()=>{
         console.log("SerVerStarTed");
     });
 

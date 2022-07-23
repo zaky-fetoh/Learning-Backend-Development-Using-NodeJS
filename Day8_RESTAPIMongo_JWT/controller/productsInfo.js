@@ -48,9 +48,27 @@ exports.getSingleProduct = function (req, res, next) {
 
 exports.deleteProduct = function (req, res, nex) {
     const id = req.params.prodId;
-    db.ProductsInfo.removeOne({
+    db.ProductsInfo.deleteOne({
                 _id: id
-    }).exec().then(result=>{
-        
+    }).exec().then(deleteInfo=>{
+        res.status(200).json(
+            {
+                deleteInfo,
+                ok:true,
+                _Info: {
+                    massage: "get All Prods",
+                    link: "/product/get-all",
+                },
+            })
+    }).catch(err=>{
+        res.status(500).json(
+            {
+                message:"invalid ID",
+                _Info: {
+                    massage: "get All Prods",
+                    link: "/product/get-all",
+                },
+            })
     })
 }
+
