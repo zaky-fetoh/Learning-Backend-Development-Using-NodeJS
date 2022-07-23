@@ -9,6 +9,7 @@ const { Store, SupplyDetails,
 exports.Store =  Store;
 exports.SupplyDetails = SupplyDetails;
 exports.Suppliers=Suppliers; 
-exports.Orders = Orders;
+exports.Orders = Orders.Orders;
+exports.OrderItem = Orders.OrderItem;
 exports.ProductsInfo =ProductsInfo; 
 exports.Users = Users;

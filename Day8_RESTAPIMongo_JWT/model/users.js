@@ -40,16 +40,16 @@ userSchema.virtual("NumofDays").get(function(){
 
 userSchema.virtual("AddedSince").get(function(){
         let days = this.NumofDays ;
-        let years = Math.floor(days / 360);
         let remaining = days % 360; 
+        let years = Math.floor(days / 360);
         return `Created ${years} year(s) and ${remaining} day(s) ago.`;
 })
 
 const users = mongoose.model('users', userSchema);
-users.create({
-    _id:new mongoose.Types.ObjectId(999),
-    name: "admin",
-    email:"admin@admin.local",
-    password:"admin",
-});
+// users.create({
+//     _id:new mongoose.Types.ObjectId(999),
+//     email:"admin@admin.local",
+//     password:"admin",
+//     name: "admin",
+// });
 module.exports = users

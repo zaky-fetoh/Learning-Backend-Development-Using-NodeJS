@@ -1,108 +1,31 @@
+require("dotenv").config();
 require("mongoose").connect("mongodb://localhost:27017/firstREST", () => {
-require("dotenv").config();    
 
     const mongoose = require("mongoose");
-    const express = require("express")
     const db = require("./model/init");
-    const auth = require("./controller/auth")
-    const prodRoutes = require("./Routes/productsInfo");
-    const prep = require("./Routes/prepRoutes");
+    const express = require("express");
+    const routes = require("./Routes/init").route;
+
     new db.Users({
-        name: "ah zaKy", 
+        name: "ah zaKy",
         age: 15,
-        password:"1234",
-        email:"mah@gmail.com", 
-    }).save(); 
+        password: "1234",
+        email: "mah@gmail.com",
+    }).save();
 
     new express()
-    .use(prep.route)
-    .post("/login",auth.login)
-    .use("/product",prodRoutes.route )
-    // .delete("/product", prodRoutes.)
-    .use("/", (req, res, next)=>{
-        res.status(404).json({
-            message:"invalide Route"
-        })
-    })
-    .use((err, req, res, next) => {
-        if (res.headersSent) {
-          return next(err)
-        }
-        res.status(500)
-        res.render('error', { error: err })
-      })
-    .listen(3000,()=>{
-        console.log("SerVerStarTed");
-    });
+        .use(routes)
+        .listen(3000, () => {
+            console.log("SerVerStarTed");
+        });
 
 
 
     //main();
-    async function main(){
-    let user = new User({
-        name: "ah zaKy", 
-        age: 15,
-        //email:"mah@gmail.com", 
-    }); 
-    await user.save(); 
-
-    let prod = new ProductInfo({
-        name:"mogo", 
-        cost:25,
-        productionDate: new Date(2014,1,1),
-        expireAfterMonths:4,
-    });
-    
-    await prod.save(); 
-    
-    console.log(prod.expirationDate); 
-
-    order = new Orders({
-        owner: new mongoose.Types.ObjectId(user._id),
-        products:[{
-            product:new mongoose.Types.ObjectId(prod._id),
-            quantity:5
-        },{
-            product:new mongoose.Types.ObjectId(prod._id),
-            quantity:5
-        }]
-    }); 
-
-
-
-    await order.save()
-    console.log("saved")
-    console.log(await order.getOrederTotalCost);
-
-    const supp = await s.Suppliers.create({
-        name:"aboGhaz",
-        contactNumber:"01234567890"
-    });
-    
-    s.SupplyDetails.create(
-        {
-            product:prod._id,
-            supplier: supp._id,
-            supplyQuantity:100
-        }
-    )
-    let prod1 =await ProductInfo.findOne({
-        _id: prod._id,
-    }).populate("storeId")
-    console.log(prod1)
-    console.log(await prod1.storeId.getAllSuppliers)
-
-} 
-
-
     // async function run (){
     //     let cursor = await User.find().cursor();
     //     for await(let doc of cursor) doc.remove();
     // };run();
-    
-
-
-    
     // express()
     //     //.use Block
     //     .listen(300, () => {
@@ -111,3 +34,60 @@ require("dotenv").config();
 }, e => {
     throw new Error("Can Not Connect Mongodb database");
 })
+
+
+async function main() {
+    let user = new User({
+        name: "ah zaKy",
+        age: 15,
+        //email:"mah@gmail.com", 
+    });
+    await user.save();
+
+    let prod = new ProductInfo({
+        name: "mogo",
+        cost: 25,
+        productionDate: new Date(2014, 1, 1),
+        expireAfterMonths: 4,
+    });
+
+    await prod.save();
+
+    console.log(prod.expirationDate);
+
+    order = new Orders({
+        owner: new mongoose.Types.ObjectId(user._id),
+        products: [{
+            product: new mongoose.Types.ObjectId(prod._id),
+            quantity: 5
+        }, {
+            product: new mongoose.Types.ObjectId(prod._id),
+            quantity: 5
+        }]
+    });
+
+
+
+    await order.save()
+    console.log("saved")
+    console.log(await order.getOrederTotalCost);
+
+    const supp = await s.Suppliers.create({
+        name: "aboGhaz",
+        contactNumber: "01234567890"
+    });
+
+    s.SupplyDetails.create(
+        {
+            product: prod._id,
+            supplier: supp._id,
+            supplyQuantity: 100
+        }
+    )
+    let prod1 = await ProductInfo.findOne({
+        _id: prod._id,
+    }).populate("storeId")
+    console.log(prod1)
+    console.log(await prod1.storeId.getAllSuppliers)
+
+}

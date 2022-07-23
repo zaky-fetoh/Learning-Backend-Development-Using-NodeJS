@@ -49,8 +49,15 @@ const ordersSchema = new mongoose.Schema({
     },
     products:[{
         type: orderItemSchema,
+        default:null,
         }],
 })
+
+ordersSchema.statics.pushOrderItem = async function(orid, Item){
+    return this.updateOne({_id : orid},
+        {$push:{"products" : Item}
+        }).exec(); 
+}
 
 ordersSchema.virtual("getOrederTotalCost").get(async function(){
     let sum = 0;
@@ -62,5 +69,5 @@ ordersSchema.virtual("getOrederTotalCost").get(async function(){
     return sum;
 })
 
-mongoose.model('orderItem', orderItemSchema);
-module.exports = mongoose.model('orders', ordersSchema);
+exports.OrderItem = mongoose.model('orderItem', orderItemSchema);
+exports.Orders = mongoose.model('orders', ordersSchema);
