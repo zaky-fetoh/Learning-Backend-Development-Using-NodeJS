@@ -1,7 +1,6 @@
 require("dotenv").config();
 require("mongoose").connect("mongodb://localhost:27017/firstREST", () => {
 
-    const mongoose = require("mongoose");
     const db = require("./model/init");
     const express = require("express");
     const routes = require("./Routes/init").route;

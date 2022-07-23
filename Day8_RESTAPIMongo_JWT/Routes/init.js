@@ -1,4 +1,4 @@
-const orderRoute = require("./ordersRoute").order;
+const orderRoute = require("./ordersRoute").route;
 const prepRoute = require("./prepRoutes").route;
 const prodRoute = require("./productsInfo").route;
 const auth = require("../controller/auth")
