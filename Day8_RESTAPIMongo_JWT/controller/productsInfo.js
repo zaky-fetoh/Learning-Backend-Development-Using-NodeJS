@@ -1,5 +1,5 @@
-const db = require("../model/init");
 
+const db = require("../model/init");
 
 exports.addProduct = async function (req, res, next) {
     const prod = await db.ProductsInfo.create({
@@ -49,21 +49,21 @@ exports.getSingleProduct = function (req, res, next) {
 exports.deleteProduct = function (req, res, nex) {
     const id = req.params.prodId;
     db.ProductsInfo.deleteOne({
-                _id: id
-    }).exec().then(deleteInfo=>{
+        _id: id
+    }).exec().then(deleteInfo => {
         res.status(200).json(
             {
                 deleteInfo,
-                ok:true,
+                ok: true,
                 _Info: {
                     massage: "get All Prods",
                     link: "/product/get-all",
                 },
             })
-    }).catch(err=>{
+    }).catch(err => {
         res.status(500).json(
             {
-                message:"invalid ID",
+                message: "invalid ID",
                 _Info: {
                     massage: "get All Prods",
                     link: "/product/get-all",
@@ -72,3 +72,26 @@ exports.deleteProduct = function (req, res, nex) {
     })
 }
 
+exports.updateProduct = function(req,res,next){
+    const id = req.params.prodId;
+    db.ProductsInfo.updateOne({_id:id}, 
+        {  $set:req.body,
+        }).exec().then(resultInfo=>{
+            res.status(200).json(
+                {
+                    resultInfo,
+                    ok: true,
+                    _Info: {
+                        massage: "get All Prods",
+                        link: "/product/get-all",
+                    },
+                })
+        }).catch(err=>
+            res.status(500).json({
+            err,
+            _Info: {
+                    massage: "get All Prods",
+                    link: "/product/get-all",
+                }
+        }));
+}
