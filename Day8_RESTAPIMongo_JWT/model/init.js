@@ -6,10 +6,10 @@ const { Store, SupplyDetails,
 
 
 
-exports.Store =  Store;
-exports.SupplyDetails = SupplyDetails;
-exports.Suppliers=Suppliers; 
-exports.Orders = Orders.Orders;
-exports.OrderItem = Orders.OrderItem;
-exports.ProductsInfo =ProductsInfo; 
+exports.Store = Store;
 exports.Users = Users;
+exports.Suppliers = Suppliers;
+exports.Orders = Orders.Orders;
+exports.ProductsInfo = ProductsInfo; 
+exports.OrderItem = Orders.OrderItem;
+exports.SupplyDetails = SupplyDetails;
