@@ -1,7 +1,7 @@
 const orderRoute = require("./ordersRoute").route;
 const prepRoute = require("./prepRoutes").route;
 const prodRoute = require("./productsInfo").route;
-const userRoute = require("./users").route;
+const userRoute = require("./usersRoutes").route;
 const auth = require("../controller/auth")
 const express = require("express")
 
@@ -11,7 +11,7 @@ exports.route = express.Router()
     .use("/product",prodRoute)
     .use("/order", orderRoute)
     .use("/users", userRoute)
-    
+
     .use("/", (req, res, next)=>{
         res.status(404).json({
             message:"invalide Route"

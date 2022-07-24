@@ -18,11 +18,11 @@ exports.addUser = function (req, res, next) {
             res.status(200).json({
                 message: "user Created",
                 ok: true,
-                user:{
+                user: {
                     id: results._id,
-                    email:results.email,
-                    age:results.age,
-                    name:results.name,
+                    email: results.email,
+                    name: results.name,
+                    age: results.age,
                 },
             })
         }).catch(err => {
@@ -31,6 +31,41 @@ exports.addUser = function (req, res, next) {
                 ok: false,
                 err,
             })
+        })
+    })
+}
+
+exports.getMyInfo = function (req, res, next) {
+    const id = req.userId;
+    db.Users.findOne({ _id: id }, {
+        password: 0, __v: 0,
+    }).then(user => {
+        res.status(200).json({
+            ok: true, user,
+        })
+    }).catch(err => {
+        res.status(500).json({
+            ok: false,
+            err,
+        })
+    })
+}
+
+exports.updateInfo = async function (req, res, next) {
+    const id = req.userId; if (req.body.password)
+        req.body.password = await bcrypt.hash(
+            req.body.password, 10,
+        );
+    db.Users.updateOne({ _id: id }, {
+        $set: req.body
+    }).then(results => {
+        res.status(200).json({
+            ok: true, results,
+        });
+    }).catch(err => {
+        res.status(500).json({
+            ok: false,
+            err,
         })
     })
 }
