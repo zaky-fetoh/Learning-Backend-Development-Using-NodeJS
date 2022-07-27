@@ -70,6 +70,9 @@ exports.updateInfo = async function (req, res, next) {
     })
 }
 
+exports.deleteUser = function (req, res, next){
+    //TODO    
+}
 
 
 
