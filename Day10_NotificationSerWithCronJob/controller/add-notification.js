@@ -1,6 +1,6 @@
 const schNotification = require("../model/scheduled-notification");
 const { isWithenServedInterval } = require("./served-interval")
-
+const scheduleOps = require("./notification-scheduler");
 
 exports.addNotification = async function (req, res, next) {
     let noti = req.body;
@@ -15,7 +15,7 @@ exports.addNotification = async function (req, res, next) {
             });
         }
         else{
-            //SendImdiate notification
+            scheduleOps.scheduleOne(noti)
         }
        
     } catch (e) {
