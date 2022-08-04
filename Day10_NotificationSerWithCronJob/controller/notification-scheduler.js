@@ -8,7 +8,7 @@ async function sendNotification(notification) {
             details: notification.details,
     })
     if (notification._id) {
-        console.log(notification);
+        // console.log(notification);
         schNotification.deleteOne({
             _id: notification._id,
         }).exec();
@@ -23,7 +23,8 @@ async function scheduleOne(notification, callback, arg) {
             if (callback) callback(arg);
         }, null, true);
     }catch{
-        sendNotification(doc);
+        sendNotification(notification);
+        if (callback) callback(arg);
     }
 }
 
