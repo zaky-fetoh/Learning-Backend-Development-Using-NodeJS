@@ -3,12 +3,10 @@ const userNotification = require("../model/user-notification");
 const cron = require("cron");
 
 async function sendNotification(notification) {
-    userNotification.create(
-        {
+    userNotification.create({
             user: notification.to,
             details: notification.details,
-        }
-    )
+    })
     if (notification._id) {
         console.log(notification);
         schNotification.deleteOne({
@@ -18,11 +16,15 @@ async function sendNotification(notification) {
 }
 
 async function scheduleOne(notification, callback, arg) {
+    try{
     new cron.CronJob(new Date(notification.deliveryTime),
         async function () {
             sendNotification(notification)
             if (callback) callback(arg);
-        }, null, true)
+        }, null, true);
+    }catch{
+        sendNotification(doc);
+    }
 }
 
 async function chainnedNotification(sortedNotification) {
@@ -33,12 +35,7 @@ async function chainnedNotification(sortedNotification) {
 
 async function parallNotification(Notifications) {
     for (let doc of Notifications)
-        try {
             scheduleOne(doc);
-        } catch (e) {
-            sendNotification(doc)
-            console.log(e);
-        }
 }
 
 exports.scheduleOne = scheduleOne;

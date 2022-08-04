@@ -14,7 +14,7 @@ async function serveInterval (I){
         }
     }).sort({deliveryTime: 1,}).exec()
     console.log(`Current Interval from ${new Date(start)} to ${new Date(end)} total Notification ${Notis.length}.`)
-    scheduleOPs.parallNotification(Notis)
+    scheduleOPs.chainnedNotification(Notis)
 }
 
 exports.runSchedule = function (INTERVAL) {
