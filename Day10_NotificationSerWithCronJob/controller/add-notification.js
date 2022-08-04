@@ -6,7 +6,7 @@ exports.addNotification = async function (req, res, next) {
     let noti = req.body;
     try {
         if (!isWithenServedInterval(new Date(noti.deliveryTime))) {
-            let doc = await schNotification.create(noti);
+            await schNotification.create(noti);
         }
         else {
             console.log("One Notification Directly scheduled")

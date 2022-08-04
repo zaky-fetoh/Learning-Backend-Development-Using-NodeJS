@@ -1,7 +1,6 @@
-const userNotification = require("../model/user-notification");
 const schNotification = require("../model/scheduled-notification");
+const userNotification = require("../model/user-notification");
 const cron = require("cron");
-
 
 async function sendNotification(notification) {
     userNotification.create(
@@ -18,7 +17,6 @@ async function sendNotification(notification) {
     }
 }
 
-
 async function scheduleOne(notification, callback, arg) {
     new cron.CronJob(new Date(notification.deliveryTime),
         async function () {
@@ -27,12 +25,12 @@ async function scheduleOne(notification, callback, arg) {
         }, null, true)
 }
 
-
 async function chainnedNotification(sortedNotification) {
     if (!sortedNotification.length) return;
     const noti = sortedNotification.shift();
     scheduleOne(noti, chainnedNotification, sortedNotification)
 }
+
 async function parallNotification(Notifications) {
     for (let doc of Notifications)
         try {
