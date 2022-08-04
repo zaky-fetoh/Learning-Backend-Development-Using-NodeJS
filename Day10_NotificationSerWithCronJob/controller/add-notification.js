@@ -20,6 +20,7 @@ exports.addNotification = async function (req, res, next) {
         });
     } catch (e) {
         res.status(500).json({
+            ok:false,
             error: e,
         })
     }
