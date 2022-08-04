@@ -13,8 +13,7 @@ async function serveInterval (I){
             $lt: end,
         }
     }).sort({deliveryTime: 1,}).exec()
-    console.log(`Current Interval from ${new Date(start)} to ${new Date(end)}
-    total Notification ${Notis.length}.`)
+    console.log(`Current Interval from ${new Date(start)} to ${new Date(end)} total Notification ${Notis.length}.`)
     scheduleOPs.parallNotification(Notis)
 }
 

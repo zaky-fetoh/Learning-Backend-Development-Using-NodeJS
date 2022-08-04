@@ -3,21 +3,26 @@ const schNotification = require("../model/scheduled-notification");
 const cron = require("cron");
 
 
+async function sendNotification(notification) {
+    userNotification.create(
+        {
+            user: notification.to,
+            details: notification.details,
+        }
+    )
+    if (notification._id) {
+        console.log(notification);
+        schNotification.deleteOne({
+            _id: notification._id,
+        }).exec();
+    }
+}
+
+
 async function scheduleOne(notification, callback, arg) {
     new cron.CronJob(new Date(notification.deliveryTime),
         async function () {
-            userNotification.create(
-                {
-                    user: notification.to,
-                    details: notification.details,
-                }
-            )
-            if (notification._id) {
-                console.log(notification);
-                schNotification.deleteOne({
-                    _id: notification._id,
-                }).exec();
-            }
+            sendNotification(notification)
             if (callback) callback(arg);
         }, null, true)
 }
@@ -30,8 +35,12 @@ async function chainnedNotification(sortedNotification) {
 }
 async function parallNotification(Notifications) {
     for (let doc of Notifications)
-        scheduleOne(doc);
-
+        try {
+            scheduleOne(doc);
+        } catch (e) {
+            sendNotification(doc)
+            console.log(e);
+        }
 }
 
 exports.scheduleOne = scheduleOne;
