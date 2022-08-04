@@ -12,7 +12,7 @@ async function serveInterval (I){
             $gte: start, 
             $lt: end,
         }
-    }).exec()
+    }).sort({deliveryTime: 1,}).exec()
     console.log(`Current Interval from ${new Date(start)} to ${new Date(end)}
     total Notification ${Notis.length}.`)
     scheduleOPs.chainnedNotification(Notis)

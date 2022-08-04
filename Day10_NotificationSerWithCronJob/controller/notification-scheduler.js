@@ -12,12 +12,12 @@ async function scheduleOne(notification, callback, ...args) {
                     details: notification.details,
                 }
             )
-            if (callback) callback(args);
+            if (callback) callback(...args);
         }, async function () {
             if (notification._id)
                 schNotification.deleteOne({
                     _id: notification._id
-                })
+                }).exec();
         }, true)
 }
 
