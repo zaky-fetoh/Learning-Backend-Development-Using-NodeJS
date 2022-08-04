@@ -1,9 +1,10 @@
+const {runSchedule} = require("./controller/schedule-interval");
 const addNotiRoute = require("./routes/add-notification");
 const mongoose = require("mongoose");
 const express = require("express");
-const {runSchedule} = require("./controller/schedule-interval");
 
 
+const PORT = process.env.PORT || 3000
 const INTERVAL = 3
 
 async function run(){
@@ -12,7 +13,9 @@ async function run(){
     app.use(express.json())
     app.use(addNotiRoute)
     runSchedule(INTERVAL)
-    app.listen(3000)
+    app.listen(PORT,()=>{
+        console.log(`Server Start listening at port ${PORT}`)
+    })
 }
 run()
 
