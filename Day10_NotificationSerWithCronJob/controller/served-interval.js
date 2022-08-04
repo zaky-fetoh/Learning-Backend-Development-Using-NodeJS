@@ -18,6 +18,6 @@ exports.getServedInterval = function () {
 
 exports.isWithenServedInterval = function(date){
     if(date < serverdInterval.start) return false;
-    else if ( serverdInterval.end < date) return false; 
+    else if ( serverdInterval.end <= date) return false; 
     else return true; 
 }
