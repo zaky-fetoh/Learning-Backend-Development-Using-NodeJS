@@ -1,6 +1,5 @@
 const userNotification = require("../model/user-notification");
 const schNotification = require("../model/scheduled-notification");
-const mongoose = require("mongoose")
 const cron = require("cron");
 
 
@@ -13,13 +12,14 @@ async function scheduleOne(notification, callback, arg) {
                     details: notification.details,
                 }
             )
-            if (callback) callback(arg);
-        }, async function () {
-            if (notification._id)
+            if (notification._id) {
+                console.log(notification);
                 schNotification.deleteOne({
-                    _id: new mongoose.Types.ObjectId(notification._id)
+                    _id: notification._id,
                 }).exec();
-        }, true)
+            }
+            if (callback) callback(arg);
+        }, null, true)
 }
 
 
@@ -34,7 +34,6 @@ async function parallNotification(Notifications) {
 
 }
 
-
 exports.scheduleOne = scheduleOne;
+exports.parallNotification = parallNotification;
 exports.chainnedNotification = chainnedNotification;
-exports.parallNotification= parallNotification;
