@@ -13,7 +13,7 @@ exports.setServedInterval = function (start, end) {
 }
 
 exports.getServedInterval = function () {
-    return Object.assign(serverdInterval)
+    return serverdInterval
 }
 
 exports.isWithenServedInterval = function(date){

@@ -4,18 +4,18 @@ const cron = require("cron");
 
 
 async function scheduleOne(notification, callback, ...args) {
-    new cron.CronJob(noti.deliveryTime,
+    new cron.CronJob(new Date(notification.deliveryTime),
         async function () {
-            await userNotification.create(
+            userNotification.create(
                 {
-                    to: notification.to,
+                    user: notification.to,
                     details: notification.details,
                 }
             )
-            if (!callback) callback(args);
+            if (callback) callback(args);
         }, async function () {
-            if (!notification._id)
-                await schNotification.deleteOne({
+            if (notification._id)
+                schNotification.deleteOne({
                     _id: notification._id
                 })
         }, true)

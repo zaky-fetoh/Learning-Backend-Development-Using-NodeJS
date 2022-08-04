@@ -9,6 +9,7 @@ exports.addNotification = async function (req, res, next) {
             let doc = await schNotification.create(noti);
         }
         else {
+            console.log("One Notification Directly scheduled")
             scheduleOps.scheduleOne(noti)
         }
         res.status(200).json({

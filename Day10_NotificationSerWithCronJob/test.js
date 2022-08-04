@@ -2,6 +2,7 @@ const cron = require("cron")
 
 
 
-new cron.CronJob( new Date(Date.now()+ 3000),()=>{
-    console.log("hello");
+new cron.CronJob("*/3 * * * * *",function(){
+    console.log("hello")
+    console.log(this.nextDates()) 
 }, null, true);
